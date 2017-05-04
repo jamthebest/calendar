@@ -1,0 +1,11 @@
+.calendar-template td.selected {
+    background-color: #43c143;
+}
+
+.calendar-template td.weekend {
+    background-color: #dede1a;
+}
+
+.calendar-template td.disabled {
+    background-color: #969696;
+}

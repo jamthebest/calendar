@@ -44,8 +44,23 @@
                     </div>
                 </div>
             </div>
+            <div class="calendars ui container">
+            	<calendar year="2017" month="5" init="3" end="27"></calendar>
+            </div>
         </div>
     </div>
+    <!-- Import Calendar Component -->
+    <link rel="stylesheet" href="components/calendar/calendar.css">
+    <div w3-include-html="components/calendar/calendar.html"></div>
+    <script src="components/calendar/calendar.js"></script>
+    <script>
+    	w3IncludeHTML();
+        setTimeout(function() {
+            var script = document.createElement('script');
+            script.src = 'script.js';
+            document.head.appendChild(script);
+        }, 0);
+    </script>
 </body>
 
 </html>

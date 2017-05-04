@@ -226,6 +226,9 @@ var app = new Vue({
 	created: function() {},
 	mounted: function() {
 		this.$form = $(this.$el).find('.form');
+		$(this.$el).find('#calendar').calendar({
+			type: 'date'
+		});
 	},
 	methods: {
 		apply: function() {
