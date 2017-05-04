@@ -16,7 +16,7 @@ Vue.component('calendar', {
     },
     data: function() {
         return {
-            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Oct', 'Nov', 'Dec']
+            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         };
     },
     computed: {
@@ -32,7 +32,9 @@ Vue.component('calendar', {
             return Math.ceil((this.firstDay + this.lastDate) / 7);
         }
     },
-    created: function() {},
+    created: function() {
+        console.log(this)
+    },
     mounted: function() {},
     destroyed: function() {},
     methods: {}

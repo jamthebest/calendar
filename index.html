@@ -40,12 +40,19 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="ui error message"></div>
                         <button class="ui button" v-on:click="apply">Apply</button>
                     </div>
                 </div>
             </div>
             <div class="calendars ui container">
-            	<calendar year="2017" month="5" init="3" end="27"></calendar>
+                <div class="ui equal width center aligned padded grid">
+                    <div class="row" v-for="row in params.rows">
+                        <div class="column" v-for="calendar in 2" v-if="((row - 1) * 2) + (calendar - 1) < params.months">
+                            <calendar :year="params.dates[((row - 1) * 2) + (calendar - 1)].year" :month="params.dates[((row - 1) * 2) + (calendar - 1)].month + 1" :init="params.dates[((row - 1) * 2) + (calendar - 1)].init" :end="params.dates[((row - 1) * 2) + (calendar - 1)].end"></calendar>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -54,12 +61,12 @@
     <div w3-include-html="components/calendar/calendar.html"></div>
     <script src="components/calendar/calendar.js"></script>
     <script>
-    	w3IncludeHTML();
-        setTimeout(function() {
-            var script = document.createElement('script');
-            script.src = 'script.js';
-            document.head.appendChild(script);
-        }, 0);
+    w3IncludeHTML();
+    setTimeout(function() {
+        var script = document.createElement('script');
+        script.src = 'script.js';
+        document.head.appendChild(script);
+    }, 0);
     </script>
 </body>
 

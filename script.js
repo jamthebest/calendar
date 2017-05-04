@@ -1,7 +1,9 @@
 var app = new Vue({
 	el: '#app',
 	data: {
-		message: 'You loaded this page on ' + new Date(),
+		startDate: '',
+		numberDays: '',
+		countryCode: '',
 		codes: [{
 			value: "AR",
 			text: "Argentina"
@@ -223,17 +225,86 @@ var app = new Vue({
 			text: "Zimbabwe"
 		}]
 	},
+	computed: {
+		initDate: function() {
+			if (this.startDate) {
+				return new Date(this.startDate);
+			}
+			return 0;
+		},
+		endDate: function() {
+			if (this.initDate && this.numberDays) {
+				return new Date(this.initDate.getFullYear(), this.initDate.getMonth(), this.initDate.getDate() + Number(this.numberDays));
+			}
+		},
+		params: function() {
+			if (this.initDate && this.endDate) {
+				var response = {};
+				var years = this.endDate.getFullYear() - this.initDate.getFullYear();
+				response.months = years === 0 ? this.endDate.getMonth() - this.initDate.getMonth() + 1 : this.endDate.getMonth() - this.initDate.getMonth() + 1 + (years * 12);
+				response.rows = Math.ceil(response.months / 2) || 1;
+				var result = [];
+				for (var i = 0; i < response.months; i++) {
+					if (i === 0) {
+						result.push({
+							year: this.initDate.getFullYear(),
+							month: this.initDate.getMonth(),
+							init: this.initDate.getDate(),
+							end: (this.initDate.getMonth() === this.endDate.getMonth() ? this.endDate : new Date(this.initDate.getFullYear(), this.initDate.getMonth() + 1, 0)).getDate()
+						});
+					} else {
+						var init = new Date(this.initDate.getFullYear(), this.initDate.getMonth() + i, 1)
+						result.push({
+							year: init.getFullYear(),
+							month: init.getMonth(),
+							init: 1,
+							end: (init.getMonth() === this.endDate.getMonth() ? this.endDate : new Date(init.getFullYear(), init.getMonth() + 1, 0)).getDate()
+						});
+					}
+				}
+				response.dates = result;
+				return response;
+			}
+			return {};
+		}
+	},
 	created: function() {},
 	mounted: function() {
 		this.$form = $(this.$el).find('.form');
+		this.$form.form({
+			fields: {
+				'country-code': 'empty',
+				'number-days': 'empty',
+				'start-date': 'empty'
+			}
+		})
 		$(this.$el).find('#calendar').calendar({
 			type: 'date'
 		});
 	},
 	methods: {
 		apply: function() {
+			this.$form.find('.error.message').empty();
 			var values = this.$form.form('get values');
-			console.log(values);
+			var errors = [];
+			if (!values['start-date']) {
+				errors.push('Select a Start Date');
+			}
+			if (!values['number-days']) {
+				errors.push('Fill a Number of Days');
+			} else if (values['number-days'] < 1) {
+				errors.push('The number of days must be greater than 0')
+			}
+			if (!values['country-code']) {
+				errors.push('Select a Country');
+			}
+			if (errors.length === 0) {
+				this.countryCode = values['country-code'];
+				this.numberDays = values['number-days'];
+				this.startDate = new Date(values['start-date']);
+			} else {
+				this.$form.form("add errors", errors);
+			}
 		}
 	}
 })
