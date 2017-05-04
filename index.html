@@ -10,6 +10,42 @@
 </head>
 
 <body>
+    <div id="app">
+        <div class="ui container">
+            <div class="ui top attached button">
+                <h2 class="ui header">Calendar Test</h2>
+            </div>
+            <div class="ui grid">
+                <div class="sixteen wide column"></div>
+                <div class="sixteen wide column">
+                    <div class="ui form">
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Start Date</label>
+                                <div class="ui calendar" id="calendar">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" name="start-date" placeholder="Date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Number of Days</label>
+                                <input type="number" name="number-days" placeholder="Number of Days">
+                            </div>
+                            <div class="field">
+                                <label>Country Code</label>
+                                <select name="country-code" placeholder="Country Code">
+                                    <option :value="item.value" v-for="item in codes">{{ item.text }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="ui button" v-on:click="apply">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
