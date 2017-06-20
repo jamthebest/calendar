@@ -244,13 +244,14 @@ var app = new Vue({
 				response.months = years === 0 ? this.endDate.getMonth() - this.initDate.getMonth() + 1 : this.endDate.getMonth() - this.initDate.getMonth() + 1 + (years * 12);
 				response.rows = Math.ceil(response.months / 2) || 1;
 				var result = [];
+				console.log(this.initDate)
 				for (var i = 0; i < response.months; i++) {
 					if (i === 0) {
 						result.push({
 							year: this.initDate.getFullYear(),
 							month: this.initDate.getMonth(),
 							init: this.initDate.getDate(),
-							end: (this.initDate.getMonth() === this.endDate.getMonth() ? this.endDate : new Date(this.initDate.getFullYear(), this.initDate.getMonth() + 1, 0)).getDate()
+							end: ((this.initDate.getMonth() === this.endDate.getMonth() && this.initDate.getFullYear() === this.endDate.getFullYear()) ? this.endDate : new Date(this.initDate.getFullYear(), this.initDate.getMonth() + 1, 0)).getDate()
 						});
 					} else {
 						var init = new Date(this.initDate.getFullYear(), this.initDate.getMonth() + i, 1)
@@ -258,11 +259,12 @@ var app = new Vue({
 							year: init.getFullYear(),
 							month: init.getMonth(),
 							init: 1,
-							end: (init.getMonth() === this.endDate.getMonth() ? this.endDate : new Date(init.getFullYear(), init.getMonth() + 1, 0)).getDate()
+							end: ((init.getMonth() === this.endDate.getMonth() && init.getFullYear() === this.endDate.getFullYear()) ? this.endDate : new Date(init.getFullYear(), init.getMonth() + 1, 0)).getDate()
 						});
 					}
 				}
 				response.dates = result;
+				console.log(response)
 				return response;
 			}
 			return {};
