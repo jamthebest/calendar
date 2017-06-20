@@ -234,7 +234,7 @@ var app = new Vue({
 		},
 		endDate: function() {
 			if (this.initDate && this.numberDays) {
-				return new Date(this.initDate.getFullYear(), this.initDate.getMonth(), this.initDate.getDate() + Number(this.numberDays));
+				return new Date(this.initDate.getFullYear(), this.initDate.getMonth(), this.initDate.getDate() + Number(this.numberDays) - 1);
 			}
 		},
 		params: function() {
@@ -305,6 +305,9 @@ var app = new Vue({
 			} else {
 				this.$form.form("add errors", errors);
 			}
+		},
+		getElement: function(row, calendar, element) {
+			return this.params.dates[((row - 1) * 2) + (calendar - 1)][element] + (element === 'month' ? 1 : 0);
 		}
 	}
 })

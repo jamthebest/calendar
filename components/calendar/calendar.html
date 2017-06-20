@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="week in weeks" class="week">
-                        <td v-for="day in 7" class="link day" :class="{ weekend: (day === 1 || day === 7), selected: ((((week - 1) * 7) + day - 1 - firstDay) >= init && (((week - 1) * 7) + day - 1 - firstDay) <= end), disabled: (((week - 1) * 7) + day - 1 - firstDay) < init || (((week - 1) * 7) + day - 1 - firstDay) > end }">{{ (((week - 1) * 7) + day - 1 - firstDay) >= init && (((week - 1) * 7) + day - 1 - firstDay) <= end ? (((week - 1) * 7) + day - 1 - firstDay) : '' }}</td>
+                        <td v-for="day in 7" class="link day" :class="{ weekend: (day === 1 || day === 7), selected: isSelected(day, week), disabled: isDisabled(day, week) }">{{ getDate(day, week) }}</td>
                     </tr>
                 </tbody>
             </table>
