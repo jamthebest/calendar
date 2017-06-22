@@ -49,8 +49,7 @@
                 <div class="ui equal width center aligned padded grid">
                     <div class="row" v-for="row in params.rows">
                         <div class="column" v-for="calendar in 2" v-if="((row - 1) * 2) + (calendar - 1) < params.months">
-                            <!-- <div class="calendar">{{ row }} - {{ calendar }}</div> -->
-                            <calendar :year="getElement(row, calendar, 'year')" :month="getElement(row, calendar, 'month')" :init="getElement(row, calendar, 'init')" :end="getElement(row, calendar, 'end')"></calendar>
+                            <calendar :holidays="holidays" :year="getElement(row, calendar, 'year')" :month="getElement(row, calendar, 'month')" :init="getElement(row, calendar, 'init')" :end="getElement(row, calendar, 'end')"></calendar>
                         </div>
                     </div>
                 </div>

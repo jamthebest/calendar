@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="week in weeks" class="week">
-                        <td v-for="day in 7" class="link day" :class="{ weekend: (day === 1 || day === 7), selected: isSelected(day, week), disabled: isDisabled(day, week) }">{{ getDate(day, week) }}</td>
+                        <td v-for="day in 7" class="link day" :class="{ weekend: (day === 1 || day === 7), selected: isSelected(day, week), disabled: isDisabled(day, week), holiday: isHoliday(day, week) }" :data-html="getHoliday(day, week)">{{ getDate(day, week) }}</td>
                     </tr>
                 </tbody>
             </table>

@@ -4,6 +4,8 @@ var app = new Vue({
 		startDate: '',
 		numberDays: '',
 		countryCode: '',
+		holidays: {},
+		yearsCount: 0,
 		codes: [{
 			value: "AR",
 			text: "Argentina"
@@ -244,7 +246,6 @@ var app = new Vue({
 				response.months = years === 0 ? this.endDate.getMonth() - this.initDate.getMonth() + 1 : this.endDate.getMonth() - this.initDate.getMonth() + 1 + (years * 12);
 				response.rows = Math.ceil(response.months / 2) || 1;
 				var result = [];
-				console.log(this.initDate)
 				for (var i = 0; i < response.months; i++) {
 					if (i === 0) {
 						result.push({
@@ -264,7 +265,6 @@ var app = new Vue({
 					}
 				}
 				response.dates = result;
-				console.log(response)
 				return response;
 			}
 			return {};
@@ -301,12 +301,46 @@ var app = new Vue({
 				errors.push('Select a Country');
 			}
 			if (errors.length === 0) {
-				this.countryCode = values['country-code'];
-				this.numberDays = values['number-days'];
-				this.startDate = new Date(values['start-date']);
+				var numberDays = values['number-days'];
+				var init = new Date(values['start-date']);
+				var end = new Date(init.getFullYear(), init.getMonth(), init.getDate() + Number(numberDays) - 1);
+				this.yearsCount = end.getFullYear() - init.getFullYear();
+				this.callApiHolidays(init.getFullYear(), values);
 			} else {
 				this.$form.form("add errors", errors);
 			}
+		},
+		callApiHolidays: function(year, values) {
+			var _this = this;
+			$.ajax({
+				type: "GET",
+				url: 'https://holidayapi.com/v1/holidays',
+				data: {
+					key: '71a915c1-adb9-4745-a1c2-1fc697e5d927',
+					country: values['country-code'],
+					year: year
+				},
+				success: function(res) {
+					_this.holidays = Object.assign(_this.holidays, res.holidays);
+					if (_this.yearsCount === 0) {
+						_this.countryCode = values['country-code'];
+						_this.numberDays = values['number-days'];
+						_this.startDate = new Date(values['start-date']);
+						setTimeout(function() {
+							$('td[data-html]').popup({
+								position: 'top center',
+								hoverable: true
+							});
+						}, 10);
+					} else {
+						_this.yearsCount--;
+						_this.callApiHolidays(++year, values);
+					}
+				},
+				error: function(error) {
+					console.error(error);
+				}
+			});
 		},
 		getElement: function(row, calendar, element) {
 			return this.params.dates[((row - 1) * 2) + (calendar - 1)][element] + (element === 'month' ? 1 : 0);
