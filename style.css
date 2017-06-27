@@ -5,3 +5,32 @@
 .ui.message .list:not(.ui) li:before {
     content: '' !important;
 }
+
+body {
+	background: #000046;
+    background: -webkit-linear-gradient(to right, #1CB5E0, #000046);
+    background: linear-gradient(to left, #1CB5E0, #000046);
+    color: #FFFFFF;
+}
+
+#app .container .ui.top.attached.button {
+	background: #000147;
+}
+
+#app .container .ui.top.attached.button .ui.header {
+	color: #FFFFFF;
+}
+
+#app .container .grid .form .fields .field label {
+	color: #C2C2FF;
+}
+
+#app .container .grid .form input, #app .container .grid .form select {
+	background: #1797C7;
+    color: white;
+}
+
+#app .container .grid .form .ui.button {
+	background: #093B78;
+    color: white;
+}

@@ -1,17 +1,17 @@
 .calendar-template td.selected {
-    background-color: #43c143;
+    background-color: #39DB82;
 }
 
 .calendar-template td.weekend {
-    background-color: #dede1a;
+    background-color: #CDDC39;
 }
 
 .calendar-template td.disabled {
-    background-color: #969696;
+    background-color: #93957E;
 }
 
 .calendar-template td.holiday {
-    background-color: #f98008;
+    background-color: #D58939;
 }
 
 .holiday-list ul {
@@ -29,13 +29,13 @@
     display: block;
     width: 200px;
     height: 28px;
-    background-color: #333;
-    border-left: 5px solid #222;
-    border-right: 5px solid #222;
+    background-color: #00003D;
+    border-left: 5px solid #000014;
+    border-right: 5px solid #000014;
     padding-top: 3px;
     text-decoration: none;
     text-align: center;
-    color: #bfe1f1;
+    color: #C2C2FF;
 }
 
 .holiday-list ul li a:hover {
@@ -45,4 +45,22 @@
     -webkit-box-shadow: 10px 10px 20px #000000;
     transform: rotate(-5deg);
     box-shadow: 10px 10px 20px #000000;
+}
+
+.ui.popup:not(.calendar) {
+	background: transparent !important;
+}
+
+.calendar-template .calendar table {
+    border-color: #BDBDBD;
+}
+
+.calendar-template .calendar table thead tr th {
+    background: #212121;
+    color: #757575;
+}
+
+.calendar-template .calendar table thead tr:nth-child(2) th {
+    background: #303F9F;
+    color: #C5CAE9;
 }

@@ -87,7 +87,6 @@ Vue.component('calendar', {
                     return res;
                 }, '');
                 html += '</ul>\n</div>';
-                console.log(html);
                 holiday = html;
             }
             return greatherInitSelected && smallerEndSelected && holiday ? holiday : false;
